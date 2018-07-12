@@ -1,13 +1,13 @@
 Feature: Platform - Login
 
 	@login
-	Scenario: verify login with valid user
+	Scenario: User creates first node which is rinkeby node
 		Given User access Platform
-		And i add a credit card
-#		And User enters email
-#		And User enters password
+		And Creates first node
+		And Fills Node Configuration for Shared Rinkeby Node and Submits
+		And Adds credit card information
 #		Then User clicks on the login
 
 
-		#And User selects "Rinkeby Test Network"
-		#And User selects "Rinkeby Test Network" as participant
+#And User selects "Rinkeby Test Network"
+#And User selects "Rinkeby Test Network" as participant
