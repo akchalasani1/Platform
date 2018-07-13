@@ -5,16 +5,15 @@ class LoginPage < BasePage
      element   :yur_login_lnk,                :xpath, "//span[@class='auth0-label-submit']"
      element   :yur_signupnode_lnk,           :xpath, "//div[text()='Spin up a node']"
 
-     element   :btn_next,           :xpath, "//div[@class ='PanelButton Primary']"
+     element   :btn_next,                     :xpath, "//div[@class ='PanelButton Primary']"
 
-     element   :btn_addcard,                  :xpath, "//div[text()='Add Card and Create']"
-     element   :lnk_fil_crd_dtls_manually,    :xpath, "//span[text()='Fill in your card details manually.']"
-     element   :yur_cardnumber,               :xpath, "//input[@id='bedee8c0-7eff-11e8-814c-858bf32db70c']"
-     element   :yur_exp,                      :xpath, "//input[@id='bedf0fd0-7eff-11e8-814c-858bf32db70c']"
-     element   :yur_cvc,                      :xpath, "//input[@id='bedf36e0-7eff-11e8-814c-858bf32db70c']"
      element   :btn_sbmt,                     :xpath, "//button[@type='submit']"
      element   :iframe_id,                    :xpath, "//iframe[@name ='stripe_checkout_app']"
      element   :btn_new_node,                 :xpath, "//a[@href='/newnode']"
+     element   :dedicated_node_radio,         :xpath, "//div[text()='Your own dedicated node - ']"
+     element   :mainnet_node_radio,           :xpath, "//div[text()='MAINNET']"
+     element   :dedicated_node_on_dashboard,  :xpath, "//td[text()='Dedicated']"
+     element   :shared_node_on_dashboard,     :xpath, "//td[text()='Shared']"
 
      def access_Platform
         app_invoke
@@ -34,6 +33,15 @@ class LoginPage < BasePage
      def create_subsequent_node
       self.btn_new_node.click
       sleep 2
+     end
+
+     def create_dedicated_mainnet_node
+        self.dedicated_node_radio.click
+        sleep 2
+        self.btn_next.click
+        self.mainnet_node_radio.click
+        sleep 2
+        self.btn_next.click
      end
 
      def subscribe_to_shared_rinkeby_node
@@ -65,7 +73,13 @@ class LoginPage < BasePage
        }
      end
     
-    def see_created_node
+    def see_dedicated_node
+      self.dedicated_node_on_dashboard
+      sleep 10
+    end
 
-   end
+    def see_shared_node
+      self.shared_node_on_dashboard
+      sleep 10
+    end
  end

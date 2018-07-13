@@ -7,8 +7,16 @@ When(/^Creates first node$/) do
   @app.login.create_first_node
 end
 
+When(/^Creates subsequent node$/) do
+  @app.login.create_subsequent_node
+end
+
 And(/^Fills Node Configuration for Shared Rinkeby Node and Submits$/) do
   @app.login.subscribe_to_shared_rinkeby_node
+end
+
+And(/^Fills Node Configuration for Dedicated Mainnet Node and Submits$/) do
+  @app.login.create_dedicated_mainnet_node
 end
 
 And(/^Adds credit card information$/) do
@@ -16,5 +24,9 @@ And(/^Adds credit card information$/) do
 end
 
 Then(/^See subscribed node on the dashboard$/) do
-  @app.login.see_created_node
+  @app.login.see_shared_node
+end
+
+Then(/^See created dedicated node on the dashboard$/) do
+  @app.login.see_dedicated_node
 end
