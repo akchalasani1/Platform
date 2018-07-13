@@ -13,7 +13,8 @@ class LoginPage < BasePage
      element   :dedicated_node_radio,         :xpath, "//div[text()='Your own dedicated node - ']"
      element   :mainnet_node_radio,           :xpath, "//div[text()='MAINNET']"
      element   :dedicated_node_on_dashboard,  :xpath, "//td[text()='Dedicated']"
-     element   :shared_node_on_dashboard,     :xpath, "//td[text()='Shared']"
+     element   :shared_node_on_dashboard,     :xpath, "//a[text()='Shared Node on Rinkeby']"
+     element   :btn_unsubscribe,              :xpath, "//button[span[text()='Unsubscribe from Node']]"
 
      def access_Platform
         app_invoke
@@ -51,6 +52,13 @@ class LoginPage < BasePage
         sleep 10
      end
 
+     def unsubscribe_node
+      self.shared_node_on_dashboard.click
+      sleep 2
+      self.btn_unsubscribe.click
+      sleep 2
+     end
+
 
      def fill_stripe_elements(card: '4242424242424242', expiry: '01/22', cvc: '123')
        using_wait_time(10) {
@@ -80,6 +88,10 @@ class LoginPage < BasePage
 
     def see_shared_node
       self.shared_node_on_dashboard
+      sleep 10
+    end
+
+    def see_no_shared_node
       sleep 10
     end
  end
