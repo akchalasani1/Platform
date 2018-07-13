@@ -3,7 +3,7 @@ Given(/^User access Platform/) do
   @app.login.access_Platform
 end
 
-And(/^Creates first node$/) do
+When(/^Creates first node$/) do
   @app.login.create_first_node
 end
 
@@ -13,4 +13,8 @@ end
 
 And(/^Adds credit card information$/) do
   @app.login.fill_stripe_elements
+end
+
+Then(/^See subscribed node on the dashboard$/) do
+  @app.login.see_created_node
 end

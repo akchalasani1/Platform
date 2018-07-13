@@ -5,9 +5,7 @@ class LoginPage < BasePage
      element   :yur_login_lnk,                :xpath, "//span[@class='auth0-label-submit']"
      element   :yur_signupnode_lnk,           :xpath, "//div[text()='Spin up a node']"
 
-       element   :btn_next,           :xpath, "//div[@class ='PanelButton Primary']"
-
-     #element   :btn_next,           :xpath, "//div[@class ='PanelButton Primary']"
+     element   :btn_next,           :xpath, "//div[@class ='PanelButton Primary']"
 
      element   :btn_addcard,                  :xpath, "//div[text()='Add Card and Create']"
      element   :lnk_fil_crd_dtls_manually,    :xpath, "//span[text()='Fill in your card details manually.']"
@@ -21,13 +19,14 @@ class LoginPage < BasePage
      def access_Platform
         app_invoke
         window = page.driver.browser.window_handles
-        self.yur_login_emil.set "anil@wetrust.io"
+        self.yur_login_emil.set "minh@wetrust.io"
         self.yur_login_pswd.set "Ac041880!"
         self.yur_login_lnk.click
         sleep 2
      end
 
      def create_first_node
+        sleep 2
         self.yur_signupnode_lnk.click
         sleep 2
      end
@@ -41,21 +40,32 @@ class LoginPage < BasePage
         self.btn_next.click
         sleep 2
         self.btn_next.click
-        sleep 2
+        sleep 10
      end
 
 
-     def fill_stripe_elements(card: '4242424242424242' , expiry: '01/22', cvc: '123')
+     def fill_stripe_elements(card: '4242424242424242', expiry: '01/22', cvc: '123')
        using_wait_time(10) {
-         frame = find('.stripe_checkout_app')
-         within_frame(frame) do
-          # TODO: Fill up billing address and card info
-          #  card.to_s.chars.each do |piece|
-          #    find_field('cardnumber').send_keys(piece)
-          #  end
-
+        #  frame = find('stripe_checkout_app')
+         within_frame('stripe_checkout_app') do
           #  find_field('exp-date').send_keys expiry
-          #  find_field('cvc').send_keys cvc
-         end }
+          find_field('Name').send_keys "Some Full Name"
+          find_field('Street').send_keys "Some Street Address"
+          find_field('Postcode').send_keys "777222"
+          find_field('City').send_keys "Mountain View"
+          sleep 2
+          click_button 'Payment Info'
+
+          fill_in 'Card number', with: '4242424242424242' #test card number
+          fill_in 'MM / YY', with: '02/22'
+          fill_in 'CVC', with: '222'
+          click_button 'Add Card'
+          sleep 10
+         end 
+       }
      end
+    
+    def see_created_node
+
+   end
  end
