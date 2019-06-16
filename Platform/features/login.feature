@@ -1,13 +1,22 @@
 Feature: Platform - Login
 
 	@login
-	Scenario: verify login with valid user
+	Scenario: User creates first node which by subscribing to rinkeby node
 		Given User access Platform
-		And i add a credit card
-#		And User enters email
-#		And User enters password
-#		Then User clicks on the login
+		When Creates first node
+		And Fills Node Configuration for Shared Rinkeby Node and Submits
+		And Adds credit card information
+		Then See subscribed node on the dashboard
 
+	@login
+	Scenario: User creates second node which is a dedicated mainnet node
+		Given User access Platform
+		When Creates subsequent node
+		And Fills Node Configuration for Dedicated Mainnet Node and Submits
+		Then See created dedicated node on the dashboard
 
-		#And User selects "Rinkeby Test Network"
-		#And User selects "Rinkeby Test Network" as participant
+	@login
+	Scenario: User unsubscribes from a node
+		Given User access Platform
+		When Unsubscribing from a node subscription
+		Then Should not see the subscribed node on the dashboard
